@@ -228,7 +228,7 @@
             {
                 name: "Rapid Fire",
                 desc: "Spell cooldown reduced by 50%",
-                apply: () => player.spellCooldown = (player.spellCooldown || 500) * 0.5
+                apply: () => player.spellCooldown = player.spellCooldown * 0.5
             },
             {
                 name: "Glass Cannon",
@@ -269,7 +269,7 @@
                 desc: "+30 max health and heal 20",
                 apply: () => {
                     player.maxHealth += 30;
-                    player.health = Math.min(player.maxHealth, player.health + 20);
+                    player.health = Math.min(player.health + 20, player.maxHealth);
                 }
             },
             {
@@ -1039,7 +1039,7 @@
             if (!game.running || game.paused) return;
             
             const now = Date.now();
-            const cooldown = player.spellCooldown || 500;
+            const cooldown = player.spellCooldown;
             if (now - lastSpellTime > cooldown) {
                 createSpell(player.x, player.y, player.angle, true);
                 lastSpellTime = now;
